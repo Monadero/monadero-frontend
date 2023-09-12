@@ -1,5 +1,5 @@
 <template>
-  <header class="absolute inset-x-0 top-0 z-50">
+  <header v-if="!isLoggedIn" class="absolute inset-x-0 top-0 z-50">
     <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
       <div class="flex lg:flex-1">
         <RouterLink to="/" class="-m-1.5 p-1.5">
@@ -54,9 +54,26 @@
 </style>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+
+import { supabase } from '@/lib/supabaseClient'
+
+import useAuthUser from "@/composables/useAuthUser";
+const { isLoggedIn } = useAuthUser();
+
+const session = ref()
+
+onMounted(() => {
+  supabase.auth.getSession().then(({ data }) => {
+    session.value = data.session
+  })
+
+  supabase.auth.onAuthStateChange((_, _session) => {
+    session.value = _session
+  })
+})
 
 const navigation = [
   { name: 'Product', href: '/product' },

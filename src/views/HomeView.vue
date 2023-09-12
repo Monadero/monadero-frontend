@@ -31,7 +31,20 @@
 </template>
 
 <script>
+import {supabase} from "@/lib/supabaseClient";
+
 export default {
   name: 'HomeView',
+  async created() {
+    let { data: plans, error } = await supabase
+        .from('plans')
+        .select('*')
+
+    console.log(plans, error)
+  }
 }
+</script>
+
+<script setup>
+
 </script>
