@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  --primary-background-color: #00171F;
+  --primary-text-color: #fff;
+  --primary-border-color: rgba(0, 167, 225, 1);
+  --secondary-background-color: rgba(0, 167, 225, 0.2);
+  color: var(--primary-text-color);
+  background: linear-gradient(335deg, var(--primary-background-color), var(--secondary-background-color)) fixed;
+  background-color: var(--primary-background-color);
+}
