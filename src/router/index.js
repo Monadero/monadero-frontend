@@ -22,7 +22,7 @@ const routes = [
     name: 'dashboard',
     component: DashboardView,
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     }
   },
   { path: '/:pathMatch(.*)*', component: Error404View }
@@ -35,7 +35,6 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const { isLoggedIn } = useAuthUser()
-  console.log(isLoggedIn())
   if (!isLoggedIn() && to.meta.requiresAuth) {
     return {name: "login"}
   }
